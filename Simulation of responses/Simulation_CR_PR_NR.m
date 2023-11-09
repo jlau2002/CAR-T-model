@@ -19,17 +19,17 @@ KBpTN=1808.02;
 %figure;
 subplot(2,2,1)
 plot(t,f(:,1));
-title('nB+');
+title('nB+'); % Number of B-all leukemia cells
 hold on
 
 subplot(2,2,2)
 plot(t,f(:,2));
-title('nTA');
+title('nTA'); % Number of activated CAR T-cells
 hold on
 
 subplot(2,2,3)
 plot(t,f(:,3));
-title('nTN');
+title('nTN'); % Number of inactive CAR T-cells
 
 hold on
 
