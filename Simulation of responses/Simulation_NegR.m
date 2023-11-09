@@ -27,24 +27,55 @@ KBn=Param(14);
 figure;
 subplot(2,2,1)
 plot(t,f(:,1));
-title('nB+');
+title('nB+'); % Number of B-all CD19+ cells
+xlabel('Time (days)')
+ylabel('Number of Cells')
 
 subplot(2,2,2)
 plot(t,f(:,2));
-title('nTA');
+title('nTA'); % Number of activated CAR-T cells
+xlabel('Time (days)')
+ylabel('Number of Cells')
 
 subplot(2,2,3)
 plot(t,f(:,3));
-title('nTN');
+title('nTN'); % Number of inactive CAR-T cells
+xlabel('Time (days)')
+ylabel('Number of Cells')
 
 subplot(2,2,4)
 plot(t,f(:,4));
-title('nB-');
+title('nB-'); % Number of B-all CD19- cells
+xlabel('Time (days)')
+ylabel('Number of Cells')
 
 
-
-LB_p=97.19.*f(:,1)./(1909+f(:,1));
-LB_n=97.19.*f(:,4)./(1909+f(:,4));
+LB_p=97.19.*f(:,1)./(1909+f(:,1)); % Tumor burden of B+ cells
+LB_n=97.19.*f(:,4)./(1909+f(:,4)); % Tumor burden of B- cells
     
+% Create a new figure for the second set of ODE solutions
+figure;
+
+yyaxis left; % Use the left y-axis
+plot(t, f(:,2), 'r', 'LineWidth', 1);
+ylabel('Number of Cells x 10^9');
+
+ax = gca; % Get the current axis
+ax.YColor = 'k'; % Set the y-axis color to black
+
+yyaxis right; % Use the right y-axis
+plot(t, LB_p, 'b', 'LineWidth', 1);
+hold on
+plot(t, LB_n, '-g', 'LineWidth', 1);
+ylabel('Tumor Burden (%)');
+
+ax = gca; % Get the current axis
+ax.YColor = 'k'; % Set the y-axis color to black
+
+title('Activated CAR T-Cells and Tumor Burden');
+xlabel('Time (days)');
+legend('Activated CAR T-Cells', 'B+ Tumor Burden (LB_p)', 'B- Tumor Burden (LB_n)');
+grid on;
+
 
 

@@ -7,7 +7,7 @@ function df=Eqs_NegR(t,f,rBp, rTA0, lTA0, lTN, nMB, eBp, ka, KBp, KBpr, KBpTN, r
 
 %-----Parameters-----
 
-
+%See Eqs_CR_PR_NR for the parameter names and explanations
 
 %-----ODEs-----
 df=zeros(4,1);
