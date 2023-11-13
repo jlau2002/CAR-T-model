@@ -1,7 +1,7 @@
 
 % Simulation of continuous remission, CD19+ relapse and non-response
 
-f0=[2200.24,0,16.46]; % Initial [nP0,nTA,nT0]
+f0=[2200.24,0,16.46]; % Initial Conditions [nP0,nTA,nT0] * 10^9 Cells
 
 rBp=0.069; % Growth rate of B+ cells
 rTA0=1.62; % Growth rate of activated T cells
@@ -14,7 +14,7 @@ KBp=5891.45; % Michaelis constant for the killing of B-all cells and saturation 
 KBpr=637.64; % Michaelis constant for effect of B-ALLs on growth of the CAR-Ts (called "K_r" in paper)
 KBpTN=1808.02; % Michaelis constant for effect of B-ALLs on activation of the inactive CAR-Ts
 
-[t,f]=ode45(@Eqs_CR_PR_NR,[0:0.1:90],f0,[], rBp, rTA0, lTA0, lTN, nMB, eBp, ka, KBp, KBpr, KBpTN);
+[t,f]=ode45(@Eqs_CR_PR_NR,0:0.1:90,f0,[], rBp, rTA0, lTA0, lTN, nMB, eBp, ka, KBp, KBpr, KBpTN);
 
 %figure;
 subplot(2,2,1)
@@ -55,6 +55,29 @@ ax.YColor = 'k'; % Set the y-axis color to black
 
 yyaxis right; % Use the right y-axis
 plot(t, LB, 'b', 'LineWidth', 1);
+ylabel('Tumor Burden (%)');
+
+ax = gca; % Get the current axis
+ax.YColor = 'k'; % Set the y-axis color to black
+
+title('Activated CAR T-Cells and Tumor Burden');
+xlabel('Time (days)');
+legend('Activated CAR T-Cells', 'Tumor Burden (LB)');
+grid on;
+hold off;
+
+% Create a new figure
+figure;
+
+yyaxis left; % Use the left y-axis
+semilogy(t, f(:,2), 'r', 'LineWidth', 1);
+ylabel('Number of Cells x 10^9');
+
+ax = gca; % Get the current axis
+ax.YColor = 'k'; % Set the y-axis color to black
+
+yyaxis right; % Use the right y-axis
+semilogy(t, LB, 'b', 'LineWidth', 1);
 ylabel('Tumor Burden (%)');
 
 ax = gca; % Get the current axis

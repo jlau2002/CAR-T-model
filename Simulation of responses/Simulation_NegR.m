@@ -1,9 +1,22 @@
 
 % Simulation of CD19- relapse.
 
-f0=[17212.23022,0,0.3,19.89]; % Initial [nP0,nTA0,nTN0,nN0]
+f0=[17212.23022,0,0.3,19.89]; % Initial Conditions [nP0,nTA0,nTN0,nN0] * 10^9 Cells
 
-Param=[0.086	1.7	0.04	0.073	19988.53	8.6	794.99	827.08	93066.8	0.19 0.1 0 7.9 5956.03];
+Param=[0.086	
+    1.7	
+    0.04	
+    0.073	
+    19988.53	
+    8.6	
+    794.99	
+    827.08	
+    93066.8	
+    0.19 
+    0.1 
+    0 
+    7.9 
+    16956.03];
 
 rBp=Param(1);
 rTA0=Param(2);
@@ -16,13 +29,13 @@ KBpr=Param(8);
 KBpTN=Param(9);
 ka=Param(10);    
 rBn=Param(11);
-km=Param(12);
-kb=Param(13);
+km=Param(12); % mutation constant
+kb=Param(13); % bystander killing
 KBn=Param(14);
 
+% all other parameters the same as in CR PR NR
 
-
-[t,f]=ode45(@Eqs_NegR,[0:1:200],f0,[], rBp, rTA0, lTA0, lTN, nMB, eBp, ka, KBp, KBpr, KBpTN, rBn, km, kb, KBn);
+[t,f]=ode45(@Eqs_NegR,[0:1:220],f0,[], rBp, rTA0, lTA0, lTN, nMB, eBp, ka, KBp, KBpr, KBpTN, rBn, km, kb, KBn);
 
 figure;
 subplot(2,2,1)
