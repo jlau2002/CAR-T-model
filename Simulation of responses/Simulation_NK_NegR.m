@@ -17,7 +17,7 @@ KBp = 1050.9; %Michaelis constant for binding of CAR to B-ALLs
 KBpi = 10000; %Michaelis constant for CAR-independent binding
 rBn = 0.1;
 km = 1.5*10^-7;
-kb = 7.9;
+kb = 17.9;
 KBn = 16956.03;
 
 % Running the ode45 solver
@@ -78,40 +78,15 @@ legend('Activated CAR NK-Cells', 'B+ Tumor Burden (LB)', 'B- Tumor Burden', '5% 
 
 hold off;
 
-% Define the system of differential equations
-ode = @(t, y) [
-    rBp * y(1) * (1 - y(1)/nMB) - eBp * y(1) / (y(1) + KBp) * y(2) - eBp * y(1) / (y(1) + KBpi) * y(2);
-    (1 / (y(1) + KBpr)) * rNK * y(2) - lNK * y(2)
-];
-
-% Define the range of values for nP and nNK
-
-maxNK = max(f(:,2));
-
-nP_range = linspace(0, nMB, 100);
-nNK_range = linspace(0, maxNK, 100);
-
-% Create a grid of initial conditions
-[NP, NNK] = meshgrid(nP_range, nNK_range);
-
-% Initialize matrices to store the derivatives
-dNP = zeros(size(NP));
-dNNK = zeros(size(NNK));
-
-% Evaluate the derivatives at each point in the grid
-for i = 1:numel(NP)
-    dydt = ode(0, [NP(i), NNK(i)]);
-    dNP(i) = dydt(1);
-    dNNK(i) = dydt(2);
-end
-
-% Plot the phase portrait
+% Create a phase portrait
 figure;
-quiver(NP, NNK, dNP, dNNK, 'AutoScale', 'off', 'LineWidth', 0.05);
-xlabel('Number of CD19+ B-ALL Cells (nP)');
-xlim([0, maxNK]);
-ylabel('Number of Activated CAR NK Cells (nNK)');
-title('Phase Portrait of CD19+ B-ALL and Activated CAR NK Cells');
-grid on;
+plot(f(:,1), f(:,2), 'LineWidth', 1);
+hold on;
 
+title('Phase Portrait with Nullclines: CD19+ B-ALL Cells vs NK Cells');
+xlabel('Number of CD19+ B-ALL Cells');
+ylabel('Number of NK Cells');
+legend('Trajectory', 'Nullcline for nB-', 'Nullcline for nNK');
+grid on;
+hold off;
 
