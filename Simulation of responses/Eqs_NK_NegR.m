@@ -24,7 +24,7 @@ df(1)=rBp*f(1)*(1-f(1)/nMB)-eBp*f(1)/(f(1)+KBp)*f(2)-eBp*f(1)/(f(1)+KBpi)*f(2);
 df(2)=f(1)/(f(1)+KBpr)*rNK*f(2)-lNK*f(2); 
 % growth term minus apoptosis term
 
-df(3)=rBn*f(3)*(1-f(3)/nMB)+km*f(1)-eBp/kb*f(3)/(f(3)+KBn)*f(2);
-% Growth term plus mutation term minus bystander elimination term
+df(3)=rBn*f(3)*(1-f(3)/nMB)+km*f(1)-eBp*f(3)/(f(3)+KBpi)*f(2);
+% Growth term plus mutation term minus CAR-independent elimination term
 
 

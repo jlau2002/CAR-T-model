@@ -84,11 +84,17 @@ ylabel('Tumor Burden (%)');
 
 ax = gca; % Get the current axis
 ax.YColor = 'k'; % Set the y-axis color to black
+ax.YLim(1) = 0; % Set the lower limit of the y-axis to zero
 
 title('Activated CAR T-Cells and Tumor Burden');
 xlabel('Time (days)');
 legend('Activated CAR T-Cells', 'B+ Tumor Burden (LB_p)', 'B- Tumor Burden (LB_n)');
 grid on;
+
+% Add horizontal lines
+yline(5, '--', 'Color', 'k', 'Label', '5%');
+yline(25, '--', 'Color', 'k', 'Label', '25% (relapse threshold)');
+legend('Activated CAR T-Cells', 'B+ Tumor Burden (LB)', 'B- Tumor Burden', '5% LB', '25% LB');
 
 
 
